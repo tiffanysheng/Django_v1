@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48b63d00-fe35-4852-8426-6897d6b3d5d8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/images/squirrel.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Django_v1/populate_data.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/mystyle.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Django_v1/settings.py" afterPath="$PROJECT_DIR$/Django_v1/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Django_v1/urls.py" afterPath="$PROJECT_DIR$/Django_v1/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/User_Management/admin.py" afterPath="$PROJECT_DIR$/User_Management/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/User_Management/models.py" afterPath="$PROJECT_DIR$/User_Management/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/User_Management/views.py" afterPath="$PROJECT_DIR$/User_Management/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -40,11 +30,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="populate_data.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="populate_data.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Django_v1/populate_data.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="441">
               <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Django_v1/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="486">
+              <caret line="124" column="1" lean-forward="true" selection-start-line="124" selection-start-column="1" selection-end-line="124" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -447,7 +447,21 @@
       <option name="project" value="LOCAL" />
       <updated>1499884234082</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="create database">
+      <created>1499981304064</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1499981304064</updated>
+    </task>
+    <task id="LOCAL-00005" summary="create database">
+      <created>1499981331039</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1499981331039</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -522,7 +536,8 @@
     <MESSAGE value="test1" />
     <MESSAGE value="test2" />
     <MESSAGE value="test3" />
-    <option name="LAST_COMMIT_MESSAGE" value="test3" />
+    <MESSAGE value="create database" />
+    <option name="LAST_COMMIT_MESSAGE" value="create database" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -645,14 +660,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Django_v1/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="43" column="24" lean-forward="true" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/User_Management/migrations/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -673,6 +680,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Django_v1/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="124" column="1" lean-forward="true" selection-start-line="124" selection-start-column="1" selection-end-line="124" selection-end-column="1" />
           <folding />
         </state>
       </provider>
