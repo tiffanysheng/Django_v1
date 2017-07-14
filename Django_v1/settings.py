@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'User_Management.apps.UserManagementConfig',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
