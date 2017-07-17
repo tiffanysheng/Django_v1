@@ -11,6 +11,11 @@
 <body>
     <div class="jumbotron">
         <h2>User Login</h2>
+        {% if state == 'not_exist_or_password_error' %}
+            <div class="well">
+                <h2 class="text-danger text-center">user not exist or wrong password</h2>
+            </div>
+        {% endif %}
         <form class="form-horizontal" method="POST">
             <div class="form-group" style="padding-left: 25%">{{ form|bootstrap_horizontal }}</div>
             {% csrf_token %}

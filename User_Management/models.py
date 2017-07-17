@@ -1,16 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
-class User(models.Model):
+class MyUser(models.Model):
+    user = models.OneToOneField(User)
+    """
     user_id = models.CharField(max_length=200, unique=True, primary_key=True)
     user_name = models.CharField(max_length=100)
     user_password = models.CharField(max_length=200)
+    """
+    user_ssn = models.CharField(max_length=200, unique=True)
     user_level = models.IntegerField()
     user_balance = models.IntegerField()
 
     def __str__(self):
-        return self.user_id
+        return self.user.username
 
 
 class Game(models.Model):
