@@ -11,14 +11,19 @@
 </head>
 <body>
     <div class="jumbotron">
+        {% if signuped %}
+        <h1>SIGN UP SUCCESS</h1>
+        {% else %}
         <h2>User Sign Up</h2>
         <form class="form-horizontal" method="POST">
             <div class="form-group" style="padding-left: 25%;width:70%">{{ form|bootstrap_horizontal }}</div>
             {% csrf_token %}
+            <div class="form-group" style="padding-left: 25%;width:70%">{{ profile_form|bootstrap_horizontal }}</div>
             <div style="text-align: center">
             <input type="submit" class="btn btn-large btn-primary" value="Submit" >
             </div>
         </form>
+        {% endif %}
     </div>
 </body>
 </html>

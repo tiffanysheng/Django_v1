@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect
 from . import login
-from User_Management.signup import NewUser
+from User_Management.signup import NewUser, MyUserForm
 from django.contrib import auth
 from django.core.urlresolvers import reverse
 
@@ -12,15 +12,28 @@ def index(request):
 
 
 def signup(request):
-    form = NewUser
+
+    signuped = False
 
     if request.method == "POST":
-        form = NewUser(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return index(request)
+        form = NewUser(data=request.POST)
+        profileform = MyUserForm(data=request.POST)
+        if form.is_valid() and profileform.is_valid():
+            user = form.save()
+            user.set_password(user.password)
+            user.save()
 
-    return render(request, 'signup.html', {'form':form})
+            profile = profileform.save(commit=False)
+            profile.user = user
+            profile.save()
+            signuped = True
+    else:
+        form = NewUser()
+        profileform = MyUserForm()
+
+    return render(request, 'signup.html', {'form': form,
+                                           'profile_form': profileform,
+                                           'signuped': signuped})
 
 
 def logIn(request):
