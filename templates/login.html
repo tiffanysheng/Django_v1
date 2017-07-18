@@ -16,7 +16,7 @@
                 <h2 class="text-danger text-center">user not exist or wrong password</h2>
             </div>
         {% endif %}
-        <form class="form-horizontal" method="POST">
+        <form class="form-horizontal" method="POST" autocomplete="off">
             <div class="form-group" style="padding-left: 25%">{{ form|bootstrap_horizontal }}</div>
             {% csrf_token %}
             <div style="text-align: center">
