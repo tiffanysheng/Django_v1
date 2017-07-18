@@ -4,6 +4,7 @@ from . import login
 from User_Management.signup import NewUser, MyUserForm
 from django.contrib import auth
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 
 def index(request):
