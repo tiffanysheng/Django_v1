@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 
 
 def index(request):
-    form = login.FormLogin();
+    form = login.FormLogin()
     return render(request, 'login.html', {'form' : form})
 
 
@@ -37,7 +37,7 @@ def signup(request):
 
 
 def logIn(request):
-    form = login.FormLogin();
+    form = login.FormLogin()
     state = None
     if request.method == 'POST':
         username = request.POST.get('username','')
