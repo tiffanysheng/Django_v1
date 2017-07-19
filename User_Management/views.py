@@ -1,10 +1,10 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from . import login
 from User_Management.signup import NewUser, MyUserForm
 from django.contrib import auth
 from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import user_passes_test, login_required
+from User_Management.models import MyUser
 
 
 def index(request):
@@ -46,7 +46,10 @@ def logIn(request):
         user = auth.authenticate(username=username,password=password)
         if user is not None:
             auth.login(request, user)
-            return HttpResponseRedirect("")
+            if user.is_superuser == True:
+                return HttpResponseRedirect("admin")
+            else:
+                return HttpResponseRedirect("User_Management/user_page")
         else:
             state = 'not_exist_or_password_error'
             return render(request, 'login.html', {'form': form, 'state': state})
@@ -57,3 +60,7 @@ def logIn(request):
 def logOut(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('logIn'))
+
+
+def showUserPage(request):
+    return render(request, 'user_page.html', {'user':request.user.get_full_name})
