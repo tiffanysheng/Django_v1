@@ -6,16 +6,13 @@
     <meta charset="UTF-8">
     <title>User Login</title>
     <link rel="stylesheet" href="{% static "css/mystyle.css" %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
     <div class="jumbotron">
         <h2>User Login</h2>
-        {% if state == 'not_exist_or_password_error' %}
-            <div class="well">
-                <h2 class="text-danger text-center">user not exist or wrong password</h2>
-            </div>
-        {% endif %}
+        <div class="text-center" id="alertNoUser" style="visibility: hidden;"><span style="background-color: #8b0c1f; color: white"> user not exist or wrong password </span></div><br>
         <form class="form-horizontal" method="POST" autocomplete="off">
             <div class="form-group" style="padding-left: 25%">{{ form|bootstrap_horizontal }}</div>
             {% csrf_token %}
@@ -23,6 +20,15 @@
             <input type="submit" class="btn btn-large btn-primary" value="Login" >
             </div>
         </form>
+        {% if state == 'not_exist_or_password_error' %}
+            <script type="text/javascript">
+                $('#alertNoUser').css('visibility','visible')
+            </script>
+        {% else %}
+            <script type="text/javascript">
+                $('#alertNoUser').css('visibility','hidden')
+            </script>
+        {% endif %}
     </div>
 </body>
 </html>
