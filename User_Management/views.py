@@ -5,7 +5,8 @@ from User_Management.signup import NewUser, MyUserForm
 from django.contrib import auth
 from django.core.urlresolvers import reverse
 from User_Management.models import MyUser
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, ListView, DetailView
+from . import models
 
 
 def index(request):
@@ -64,4 +65,14 @@ def logOut(request):
 
 
 def showUserPage(request):
-    return render(request, 'user_page.html', {'user':request.user.get_full_name})
+    return render(request, 'user_page.html', {'user_fullname':request.user.get_full_name,'user':request.user.id})
+
+
+class UserInfoDetailView(DetailView):
+    context_object_name = 'user_info'
+    model = models.MyUser
+    template_name = 'user_info.html'
+
+
+def showUserActivity(request):
+    return render(request, 'user_activity.html')
