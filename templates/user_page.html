@@ -8,15 +8,15 @@
 <body>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
-            <ul class="nav navbar-nav">
-                <li><a class="navbar-brand" href="">Welcome</a></li>
-                <li><a class="navbar-link" href="">User Information</a></li>
-                <li><a class="navbar-link" href="">User Activities</a></li>
-                <li><a class="navbar-link" href="">Transactions</a></li>
-                <li><a class="navbar-link" href="">Crawler</a></li>
+            <ul class="nav navbar-nav" id="myTab">
+                <li><span class="navbar-brand" style="font-size: large;font-weight: 600;color: #5151A2;">Welcome</span></li>
+                <li><a class="navbar-link" data-toggle="tab" href="{{ user }}">User Information</a></li>
+                <li><a class="navbar-link" data-toggle="tab" href="{% url 'User_Management:user_activity' %}">User Activities</a></li>
+                <li><a class="navbar-link" data-toggle="tab" href="">Transactions</a></li>
+                <li><a class="navbar-link" data-toggle="tab" href="">Crawler</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <span>{{ user }}</span>
+                <span>{{ user_fullname }}</span>
                 <a href="{% url 'User_Management:logout' %}"><button type="button" class="btn btn-default navbar-btn">Sign out</button></a>
             </ul>
         </div>
@@ -26,5 +26,6 @@
         {% block body_block %}
         {% endblock %}
     </div>
+
 </body>
 </html>
