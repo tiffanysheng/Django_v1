@@ -3,21 +3,45 @@
 {% load bootstrap %}
 <html lang="en">
 <head>
+    <script>
+        // envelope animation
+        window.onload = function()  {
+            loginAni();
+            function loginAni() {
+            var tl = new TimelineLite({delay: 1}),
+                firstBg = document.querySelectorAll('.text__first-bg'),
+                secBg = document.querySelectorAll('.text__second-bg'),
+                word = document.querySelectorAll('.text__word');
+
+            tl
+                .to(firstBg, 0.2, {scaleX: 1})
+                .to(secBg, 0.2, {scaleX: 1})
+                .to(word, 0.1, {opacity: 1}, "-=0.1")
+                .to(firstBg, 0.2, {scaleX: 0})
+                .to(secBg, 0.2, {scaleX: 0});
+            }
+            setInterval(loginAni,5000);
+        }
+
+
+    </script>
     <meta charset="UTF-8">
     <title>User Login</title>
     <link rel="stylesheet" href="{% static "css/mystyle.css" %}">
+    <link rel="stylesheet" href="{% static "css/login.css" %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-    <div class="jumbotron">
-        <h2>User Login</h2>
+    <p class="text"> <span class="text__first"><span class="text__word">Log</span><span class="text__first-bg"></span></span><br/><span class="text__second"><span class="text__word">In</span><span class="text__second-bg"></span></span></p>
+    <div style="width: 25%;">
         <div class="text-center" id="alertNoUser" style="visibility: hidden;"><span style="background-color: #8b0c1f; color: white"> user not exist or wrong password </span></div><br>
         <form class="form-horizontal" method="POST" autocomplete="off">
-            <div class="form-group" style="padding-left: 25%">{{ form|bootstrap_horizontal }}</div>
+            <div class="form-group" style="padding-left: 10%">{{ form|bootstrap_horizontal }}</div>
             {% csrf_token %}
-            <div style="text-align: center">
-            <input type="submit" class="btn btn-large btn-primary" value="Login" >
+            <div style="left: 56%;position: relative">
+                <input type="submit" class="btn btn-large" style="background-color: black; color: white" value="Login" >
             </div>
         </form>
         {% if state == 'not_exist_or_password_error' %}
