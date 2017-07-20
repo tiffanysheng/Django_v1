@@ -5,6 +5,7 @@ from User_Management.signup import NewUser, MyUserForm
 from django.contrib import auth
 from django.core.urlresolvers import reverse
 from User_Management.models import MyUser
+from django.views.generic import View, TemplateView
 
 
 def index(request):
