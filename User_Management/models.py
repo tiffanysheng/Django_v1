@@ -10,6 +10,7 @@ class MyUser(models.Model):
     user_name = models.CharField(max_length=100)
     user_password = models.CharField(max_length=200)
     """
+    id = models.AutoField(primary_key=True)
     user_ssn = models.CharField(max_length=200, unique=True)
     user_level = models.IntegerField()
     user_balance = models.IntegerField()
@@ -29,7 +30,7 @@ class Game(models.Model):
 
 class Transaction(models.Model):
     transaction_id = models.CharField(max_length=200, unique=True, primary_key=True)
-    user_id = models.ForeignKey(User)
+    user_id = models.ForeignKey(MyUser)
     transaction_amount = models.IntegerField()
     transaction_date = models.DateField()
     transaction_type = models.CharField(max_length=200)
@@ -41,8 +42,9 @@ class Transaction(models.Model):
 class ActivitiesRecord(models.Model):
     activity_id = models.CharField(max_length=200, unique=True, primary_key=True)
     access_date = models.DateField()
-    user_id = models.ForeignKey(User)
+    user_id = models.ForeignKey(MyUser)
     game_name = models.ForeignKey(Game)
+    activity_cost = models.IntegerField()
 
     def __str__(self):
         return self.activity_id

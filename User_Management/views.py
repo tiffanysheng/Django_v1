@@ -6,7 +6,10 @@ from django.contrib import auth
 from django.core.urlresolvers import reverse
 from User_Management.models import MyUser
 from django.views.generic import View, TemplateView, ListView, DetailView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from . import models
+from User_Management.permission import PermissionVerify
 
 
 def index(request):
@@ -65,7 +68,8 @@ def logOut(request):
 
 
 def showUserPage(request):
-    return render(request, 'user_page.html', {'user_fullname':request.user.get_full_name,'user':request.user.id})
+    print(request.user.myuser.id)
+    return render(request, 'user_page.html', {'user_fullname':request.user.get_full_name,'myuser_id':request.user.myuser.id})
 
 
 class UserInfoDetailView(DetailView):
@@ -73,6 +77,32 @@ class UserInfoDetailView(DetailView):
     model = models.MyUser
     template_name = 'user_info.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserInfoDetailView, self).get_context_data(**kwargs)
+        context['user_fullname'] = self.request.user.get_full_name
+        context['myuser_id'] = self.request.user.myuser.id
+        return context
 
-def showUserActivity(request):
-    return render(request, 'user_activity.html')
+    @method_decorator(PermissionVerify)
+    def dispatch(self, *args, **kwargs):
+        return super(UserInfoDetailView, self).dispatch(*args, **kwargs)
+
+
+class UserActivityListView(ListView):
+    model = models.ActivitiesRecord
+    context_object_name = 'user_activities'
+    template_name = 'user_activity.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserActivityListView, self).get_context_data(**kwargs)
+        context['user_fullname'] = self.request.user.get_full_name
+        context['myuser_id'] = self.request.user.myuser.id
+        return context
+
+    def get_queryset(self):
+        """Returns Polls that belong to the current user"""
+        return models.ActivitiesRecord.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-access_date')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(UserActivityListView, self).dispatch(*args, **kwargs)

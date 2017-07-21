@@ -1,5 +1,34 @@
 <!DOCTYPE html>
 {% extends 'user_page.html' %}
 {% block body_block %}
-    <p>activity</p>
+    <script type="text/javascript">
+         function indexFormatter(value, row, index) {
+              return index+1;
+         }
+    </script>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th data-field="index" data-formatter="indexFormatter">#</th>
+                    <th>Activity ID</th>
+                    <th>Game Name</th>
+                    <th>Access Date</th>
+                    <th>Activity Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activity in user_activities %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ activity.activity_id }}</td>
+                        <td>{{ activity.game_name.game_name }}</td>
+                        <td>{{ activity.access_date }}</td>
+                        <td>{{ activity.activity_cost }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}
