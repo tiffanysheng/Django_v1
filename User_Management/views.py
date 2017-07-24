@@ -106,3 +106,23 @@ class UserActivityListView(ListView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(UserActivityListView, self).dispatch(*args, **kwargs)
+
+
+class UserTransListView(ListView):
+    model = models.Transaction
+    context_object_name = 'user_transactions'
+    template_name = 'user_transaction.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserTransListView, self).get_context_data(**kwargs)
+        context['user_fullname'] = self.request.user.get_full_name
+        context['myuser_id'] = self.request.user.myuser.id
+        return context
+
+    def get_queryset(self):
+        """Returns Polls that belong to the current user"""
+        return models.Transaction.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-transaction_date')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(UserTransListView, self).dispatch(*args, **kwargs)

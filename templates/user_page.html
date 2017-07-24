@@ -10,10 +10,10 @@
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <ul class="nav navbar-nav" id="myTab">
-                <li><span class="navbar-brand" style="font-size: large;font-weight: 600;color: #5151A2;">Welcome</span></li>
+                <li><a class="navbar-brand" href="{% url 'User_Management:user_page' %}" style="font-size: large;font-weight: 600;color: #5151A2;">Welcome</a></li>
                 <li><a class="navbar-link" data-toggle="tab" href="{% url 'User_Management:user_info' myuser_id %}">User Information</a></li>
                 <li><a class="navbar-link" data-toggle="tab" href="{% url 'User_Management:user_activity' %}">User Activities</a></li>
-                <li><a class="navbar-link" data-toggle="tab" href="">Transactions</a></li>
+                <li><a class="navbar-link" data-toggle="tab" href="{% url 'User_Management:user_transaction' %}">Transactions</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <span>{{ user_fullname }}</span>

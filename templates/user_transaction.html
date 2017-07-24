@@ -2,25 +2,25 @@
 {% extends 'user_page.html' %}
 {% block body_block %}
     <div class="container">
-        {% if user_activities.count != 0 %}
+        {% if user_transactions.count != 0 %}
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th data-field="index">#</th>
-                    <th>Activity ID</th>
-                    <th>Game Name</th>
-                    <th>Access Date</th>
-                    <th>Activity Cost</th>
+                    <th>Transaction ID</th>
+                    <th>Transaction Date</th>
+                    <th>Transaction Type</th>
+                    <th>Transaction Amount</th>
                 </tr>
             </thead>
             <tbody>
-                {% for activity in user_activities %}
+                {% for trans in user_transactions %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ activity.activity_id }}</td>
-                        <td>{{ activity.game_name.game_name }}</td>
-                        <td>{{ activity.access_date }}</td>
-                        <td>{{ activity.activity_cost }}</td>
+                        <td>{{ trans.transaction_id }}</td>
+                        <td>{{ trans.transaction_date }}</td>
+                        <td>{{ trans.transaction_type }}</td>
+                        <td>{{ trans.transaction_amount }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
