@@ -100,7 +100,6 @@ class UserActivityListView(ListView):
         return context
 
     def get_queryset(self):
-        """Returns Polls that belong to the current user"""
         return models.ActivitiesRecord.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-access_date')
 
     @method_decorator(login_required)
@@ -120,7 +119,6 @@ class UserTransListView(ListView):
         return context
 
     def get_queryset(self):
-        """Returns Polls that belong to the current user"""
         return models.Transaction.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-transaction_date')
 
     @method_decorator(login_required)
