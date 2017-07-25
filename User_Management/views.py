@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from . import models
 from User_Management.permission import PermissionVerify
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 def index(request):
@@ -93,14 +94,21 @@ class UserActivityListView(ListView):
     context_object_name = 'user_activities'
     template_name = 'user_activity.html'
 
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        print(q)
+        if q=="" or q==None:
+            return models.ActivitiesRecord.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-access_date')
+        else:
+            return models.ActivitiesRecord.objects.filter(user_id_id=self.request.user.myuser.id,game_name__game_name__icontains=q).order_by(
+                '-access_date')
+
     def get_context_data(self, **kwargs):
         context = super(UserActivityListView, self).get_context_data(**kwargs)
         context['user_fullname'] = self.request.user.get_full_name
         context['myuser_id'] = self.request.user.myuser.id
+        context['filtername'] = self.request.GET.get('q')
         return context
-
-    def get_queryset(self):
-        return models.ActivitiesRecord.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-access_date')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -124,3 +132,4 @@ class UserTransListView(ListView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(UserTransListView, self).dispatch(*args, **kwargs)
+
