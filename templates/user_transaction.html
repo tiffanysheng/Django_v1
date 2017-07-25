@@ -1,6 +1,56 @@
 <!DOCTYPE html>
 {% extends 'user_page.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+{% block extra_head %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+     <script>
+         $(document).ready(function(){
+             $("#search-text").change(function(){
+                var q = $("#search-text").val();
+
+                 $.ajax({
+                     url: '/User_Management/user_transaction/',
+                     type: 'GET',
+                     data: {
+                         'q': q
+                     },
+                     dataType: 'json',
+
+                  });
+             });
+         });
+         function clickIcon() {
+             document.getElementById("search-text").value = "";
+             document.getElementById("myform").submit();
+
+         }
+     </script>
+{% endblock %}
 {% block body_block %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                 <form action="/User_Management/user_transaction/" method="get" style="margin: auto 0;" id="myform">
+                    <input type="text" id="search-text" name="q" placeholder="search transaction id or transaction type" class="form-control">
+                 </form>
+            </div>
+            {% if filtername == "" or filtername is None %}
+            {% else %}
+            <div class="filter-selected-tags col-lg-5">
+                <div class="filter-tag-bar">
+                    <span class="active-filter-label label label-success" id="filterid">
+                        {{ filtername }}
+                        <i class="active-filter-remove fa fa-times" aria-hidden="false" onclick="clickIcon()"></i>
+                    </span>
+
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <br>
     <div class="container">
         {% if user_transactions.count != 0 %}
         <table class="table table-striped">
@@ -26,7 +76,7 @@
             </tbody>
         </table>
         {% else %}
-        <p>No records</p>
+            <p>No records</p>
         {% endif %}
     </div>
 

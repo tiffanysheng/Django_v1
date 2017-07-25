@@ -11,6 +11,7 @@ from django.utils.decorators import method_decorator
 from . import models
 from User_Management.permission import PermissionVerify
 from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Q
 
 
 def index(request):
@@ -96,12 +97,11 @@ class UserActivityListView(ListView):
 
     def get_queryset(self):
         q = self.request.GET.get('q')
-        print(q)
         if q=="" or q==None:
             return models.ActivitiesRecord.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-access_date')
         else:
-            return models.ActivitiesRecord.objects.filter(user_id_id=self.request.user.myuser.id,game_name__game_name__icontains=q).order_by(
-                '-access_date')
+            return models.ActivitiesRecord.objects.filter(Q(user_id_id=self.request.user.myuser.id), (Q(game_name__game_name__icontains=q) | Q(activity_id__icontains=q))).order_by('-access_date')
+            #return models.ActivitiesRecord.objects.filter(user_id_id=self.request.user.myuser.id,game_name__game_name__icontains=q).order_by('-access_date')
 
     def get_context_data(self, **kwargs):
         context = super(UserActivityListView, self).get_context_data(**kwargs)
@@ -120,14 +120,19 @@ class UserTransListView(ListView):
     context_object_name = 'user_transactions'
     template_name = 'user_transaction.html'
 
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        if q == "" or q == None:
+            return models.Transaction.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-transaction_date')
+        else:
+            return models.Transaction.objects.filter(Q(user_id_id=self.request.user.myuser.id), (Q(transaction_id__icontains=q) | Q(transaction_type__icontains=q))).order_by('-transaction_date')
+
     def get_context_data(self, **kwargs):
         context = super(UserTransListView, self).get_context_data(**kwargs)
         context['user_fullname'] = self.request.user.get_full_name
         context['myuser_id'] = self.request.user.myuser.id
+        context['filtername'] = self.request.GET.get('q')
         return context
-
-    def get_queryset(self):
-        return models.Transaction.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-transaction_date')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

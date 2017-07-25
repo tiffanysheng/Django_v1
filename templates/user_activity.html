@@ -29,26 +29,28 @@
      </script>
 {% endblock %}
 {% block body_block %}
-    <div>
-        <div class="col-lg-5">
-             <form action="/User_Management/user_activity/" method="get" style="margin: auto 0;" id="myform">
-                <input type="text" id="search-text" name="q" placeholder="search keyword" class="form-control">
-             </form>
-        </div>
-        {% if filtername == "" or filtername is None %}
-        {% else %}
-        <div class="filter-selected-tags col-lg-5">
-            <div class="filter-tag-bar">
-                <span class="active-filter-label label label-success" id="filterid">
-                    {{ filtername }}
-                    <i class="active-filter-remove fa fa-times" aria-hidden="false" onclick="clickIcon()"></i>
-                </span>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                 <form action="/User_Management/user_activity/" method="get" style="margin: auto 0;" id="myform">
+                    <input type="text" id="search-text" name="q" placeholder="search activity id or game name" class="form-control">
+                 </form>
             </div>
-        </div>
-        {% endif %}
-    </div>
+            {% if filtername == "" or filtername is None %}
+            {% else %}
+            <div class="filter-selected-tags col-lg-7">
+                <div class="filter-tag-bar">
+                    <span class="active-filter-label label label-success" id="filterid">
+                        {{ filtername }}
+                        <i class="active-filter-remove fa fa-times" aria-hidden="false" onclick="clickIcon()"></i>
+                    </span>
 
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <br>
     <div class="container">
         {% if user_activities.count != 0 %}
         <table class="table table-striped">
@@ -74,7 +76,7 @@
             </tbody>
         </table>
         {% else %}
-        <p>No records</p>
+            <p>No records</p>
         {% endif %}
     </div>
 
