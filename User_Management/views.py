@@ -138,3 +138,16 @@ class UserTransListView(ListView):
     def dispatch(self, *args, **kwargs):
         return super(UserTransListView, self).dispatch(*args, **kwargs)
 
+
+def addActivity(request, userid, gamename):
+    game = models.Game.objects.get(game_name__exact=gamename)
+    user = models.MyUser.objects.get(id=userid)
+    models.ActivitiesRecord.objects.create(user_id=user, game_name=game, activity_cost=game.cost_per_time)
+    return HttpResponseRedirect(reverse('logIn'))
+
+
+def addTransaction(request, userid, transamount, transtype):
+    user = models.MyUser.objects.get(id=userid)
+    models.Transaction.objects.create(user_id=user, transaction_amount=transamount, transaction_type=transtype)
+    return HttpResponseRedirect(reverse('logIn'))
+

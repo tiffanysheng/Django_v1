@@ -12,4 +12,6 @@ urlpatterns=[
     url(r'^user_info/(?P<pk>\d+)/$',views.UserInfoDetailView.as_view(),name='user_info'),
     url(r'^user_activity/$',views.UserActivityListView.as_view(),name='user_activity'),
     url(r'^user_transaction/$',views.UserTransListView.as_view(),name='user_transaction'),
+    url(r'^addactivity/(?P<userid>\w+)/(?P<gamename>\w+)/$',views.addActivity,name='addactivity'),
+    url(r'^addtransaction/(?P<userid>\w+)/(?P<transamount>\w+)/(?P<transtype>\w+)/$',views.addTransaction,name='addtransaction'),
 ]
