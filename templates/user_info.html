@@ -1,8 +1,130 @@
 <!DOCTYPE html>
 {% extends 'user_page.html' %}
 {% block body_block %}
-    <h1>User Information</h1>
-    <p>username: {{ user_info.myuser.username }}</p>
-    <p>first name: {{ user_info.get_full_name }}</p>
-    <p>ssn: {{ user_info.user_ssn }}</p>
+    <div class="container">
+    <!--
+        <ul class="list-group">
+          <li class="list-group-item disabled">User Information</li>
+          <li class="list-group-item">Username: {{ user_info.user.username }}</li>
+          <li class="list-group-item">First Name:
+              {% if user_info.user.first_name == '' %}
+                  N/A
+              {% else %}
+                {{ user_info.user.first_name }}
+              {% endif %}
+          </li>
+          <li class="list-group-item">Last Name:
+              {% if user_info.user.last_name == '' %}
+                  N/A
+              {% else %}
+                {{ user_info.user.last_name }}
+              {% endif %}
+          </li>
+          <li class="list-group-item">Email Address:
+              {% if user_info.user.email == '' %}
+                  N/A
+              {% else %}
+                {{ user_info.user.email }}
+              {% endif %}
+          </li>
+          <li class="list-group-item">Date Joined:
+              {% if user_info.user.date_joined == '' %}
+                  N/A
+              {% else %}
+                {{ user_info.user.date_joined }}
+              {% endif %}
+          </li>
+          <li class="list-group-item">Last Login:
+              {% if user_info.user.last_login == '' %}
+                  N/A
+              {% else %}
+                {{ user_info.user.last_login }}
+              {% endif %}
+          </li>
+          <li class="list-group-item">SSN:
+              {% if user_info.user_ssn == '' %}
+                  N/A
+              {% else %}
+                {{ user_info.user_ssn }}
+              {% endif %}
+          </li>
+          <li class="list-group-item">Level:
+              {% if user_info.user_level == '' %}
+                  N/A
+              {% else %}
+                {{ user_info.user_level }}
+              {% endif %}
+          </li>
+          <li class="list-group-item">Balance:
+              {% if user_info.user_balance == '' %}
+                  N/A
+              {% else %}
+                {{ user_info.user_balance }}
+              {% endif %}
+          </li>
+        </ul>
+        -->
+        <h1>User Information</h1>
+        <dl class="row">
+            <dt class="col-sm-2">Username:</dt>
+            <dd class="col-sm-10">{{ user_info.user.username }}</dd>
+
+            <dt class="col-sm-2">First Name:</dt>
+            {% if user_info.user.first_name == '' %}
+            <dd class="col-sm-10">N/A</dd>
+            {% else %}
+            <dd class="col-sm-10">{{ user_info.user.first_name }}</dd>
+            {% endif %}
+
+            <dt class="col-sm-2">Last Name:</dt>
+            {% if user_info.user.last_name == '' %}
+            <dd class="col-sm-10">N/A</dd>
+            {% else %}
+            <dd class="col-sm-10">{{ user_info.user.last_name }}</dd>
+            {% endif %}
+
+            <dt class="col-sm-2">Email Address:</dt>
+            {% if user_info.user.email == '' %}
+            <dd class="col-sm-10">N/A</dd>
+            {% else %}
+            <dd class="col-sm-10">{{ user_info.user.email }}</dd>
+            {% endif %}
+
+            <dt class="col-sm-2">Date Joined:</dt>
+            {% if user_info.user.date_joined == '' %}
+            <dd class="col-sm-10">N/A</dd>
+            {% else %}
+            <dd class="col-sm-10">{{ user_info.user.date_joined }}</dd>
+            {% endif %}
+
+            <dt class="col-sm-2">Last Login:</dt>
+            {% if user_info.user.last_login == '' %}
+            <dd class="col-sm-10">N/A</dd>
+            {% else %}
+            <dd class="col-sm-10">{{ user_info.user.last_login }}</dd>
+            {% endif %}
+
+            <dt class="col-sm-2">SSN:</dt>
+            {% if user_info.user_ssn == '' %}
+            <dd class="col-sm-10">N/A</dd>
+            {% else %}
+            <dd class="col-sm-10">{{ user_info.user_ssn }}</dd>
+            {% endif %}
+
+            <dt class="col-sm-2">Level:</dt>
+            {% if user_info.user_level == '' %}
+            <dd class="col-sm-10">N/A</dd>
+            {% else %}
+            <dd class="col-sm-10">{{ user_info.user_level }}</dd>
+            {% endif %}
+
+            <dt class="col-sm-2">Balance:</dt>
+            {% if user_info.user_balance == '' %}
+            <dd class="col-sm-10">N/A</dd>
+            {% else %}
+            <dd class="col-sm-10">{{ user_info.user_balance }}</dd>
+            {% endif %}
+        </dl>
+    </div>
+
 {% endblock %}

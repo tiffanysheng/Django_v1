@@ -1,3 +1,6 @@
 h2 {
     text-align: center;
 }
+.fa-remove:before, .fa-close:before, .fa-times:before {
+    content: "\f00d";
+}

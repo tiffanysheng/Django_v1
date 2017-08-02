@@ -11,7 +11,7 @@
                 var q = $("#search-text").val();
 
                  $.ajax({
-                     url: '/User_Management/user_activity/',
+                     url: '/User_Management/user_transaction/',
                      type: 'GET',
                      data: {
                          'q': q
@@ -32,13 +32,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-5">
-                 <form action="/User_Management/user_activity/" method="get" style="margin: auto 0;" id="myform">
-                    <input type="text" id="search-text" name="q" placeholder="search activity id or game name" class="form-control">
+                 <form action="/User_Management/user_transaction/" method="get" style="margin: auto 0;" id="myform">
+                    <input type="text" id="search-text" name="q" placeholder="search transaction id or transaction type" class="form-control">
                  </form>
             </div>
             {% if filtername == "" or filtername is None %}
             {% else %}
-            <div class="filter-selected-tags col-lg-7">
+            <div class="filter-selected-tags col-lg-5">
                 <div class="filter-tag-bar">
                     <span class="active-filter-label label label-success" id="filterid">
                         {{ filtername }}
@@ -52,25 +52,25 @@
     </div>
     <br>
     <div class="container">
-        {% if user_activities.count != 0 %}
+        {% if user_transactions.count != 0 %}
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th data-field="index">#</th>
-                    <th>Activity ID</th>
-                    <th>Game Name</th>
-                    <th>Access Date</th>
-                    <th>Activity Cost</th>
+                    <th>Transaction ID</th>
+                    <th>Transaction Date</th>
+                    <th>Transaction Type</th>
+                    <th>Transaction Amount</th>
                 </tr>
             </thead>
             <tbody>
-                {% for activity in user_activities %}
+                {% for trans in user_transactions %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ activity.activity_id }}</td>
-                        <td>{{ activity.game_name.game_name }}</td>
-                        <td>{{ activity.access_date }}</td>
-                        <td>{{ activity.activity_cost }}</td>
+                        <td>{{ trans.transaction_id }}</td>
+                        <td>{{ trans.transaction_date }}</td>
+                        <td>{{ trans.transaction_type }}</td>
+                        <td>{{ trans.transaction_amount }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

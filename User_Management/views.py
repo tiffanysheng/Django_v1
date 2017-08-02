@@ -6,7 +6,12 @@ from django.contrib import auth
 from django.core.urlresolvers import reverse
 from User_Management.models import MyUser
 from django.views.generic import View, TemplateView, ListView, DetailView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from . import models
+from User_Management.permission import PermissionVerify
+from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Q
 
 
 def index(request):
@@ -65,7 +70,8 @@ def logOut(request):
 
 
 def showUserPage(request):
-    return render(request, 'user_page.html', {'user_fullname':request.user.get_full_name,'user':request.user.id})
+    print(request.user.myuser.id)
+    return render(request, 'user_page.html', {'user_fullname':request.user.get_full_name,'myuser_id':request.user.myuser.id})
 
 
 class UserInfoDetailView(DetailView):
@@ -73,6 +79,75 @@ class UserInfoDetailView(DetailView):
     model = models.MyUser
     template_name = 'user_info.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserInfoDetailView, self).get_context_data(**kwargs)
+        context['user_fullname'] = self.request.user.get_full_name
+        context['myuser_id'] = self.request.user.myuser.id
+        return context
 
-def showUserActivity(request):
-    return render(request, 'user_activity.html')
+    @method_decorator(PermissionVerify)
+    def dispatch(self, *args, **kwargs):
+        return super(UserInfoDetailView, self).dispatch(*args, **kwargs)
+
+
+class UserActivityListView(ListView):
+    model = models.ActivitiesRecord
+    context_object_name = 'user_activities'
+    template_name = 'user_activity.html'
+
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        if q=="" or q==None:
+            return models.ActivitiesRecord.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-access_date')
+        else:
+            return models.ActivitiesRecord.objects.filter(Q(user_id_id=self.request.user.myuser.id), (Q(game_name__game_name__icontains=q) | Q(activity_id__icontains=q))).order_by('-access_date')
+            #return models.ActivitiesRecord.objects.filter(user_id_id=self.request.user.myuser.id,game_name__game_name__icontains=q).order_by('-access_date')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserActivityListView, self).get_context_data(**kwargs)
+        context['user_fullname'] = self.request.user.get_full_name
+        context['myuser_id'] = self.request.user.myuser.id
+        context['filtername'] = self.request.GET.get('q')
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(UserActivityListView, self).dispatch(*args, **kwargs)
+
+
+class UserTransListView(ListView):
+    model = models.Transaction
+    context_object_name = 'user_transactions'
+    template_name = 'user_transaction.html'
+
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        if q == "" or q == None:
+            return models.Transaction.objects.filter(user_id_id=self.request.user.myuser.id).order_by('-transaction_date')
+        else:
+            return models.Transaction.objects.filter(Q(user_id_id=self.request.user.myuser.id), (Q(transaction_id__icontains=q) | Q(transaction_type__icontains=q))).order_by('-transaction_date')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserTransListView, self).get_context_data(**kwargs)
+        context['user_fullname'] = self.request.user.get_full_name
+        context['myuser_id'] = self.request.user.myuser.id
+        context['filtername'] = self.request.GET.get('q')
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(UserTransListView, self).dispatch(*args, **kwargs)
+
+
+def addActivity(request, userid, gamename):
+    game = models.Game.objects.get(game_name__exact=gamename)
+    user = models.MyUser.objects.get(id=userid)
+    models.ActivitiesRecord.objects.create(user_id=user, game_name=game, activity_cost=game.cost_per_time)
+    return HttpResponseRedirect(reverse('logIn'))
+
+
+def addTransaction(request, userid, transamount, transtype):
+    user = models.MyUser.objects.get(id=userid)
+    models.Transaction.objects.create(user_id=user, transaction_amount=transamount, transaction_type=transtype)
+    return HttpResponseRedirect(reverse('logIn'))
+
