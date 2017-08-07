@@ -29,6 +29,31 @@
 
     <div class="container">
         {% block body_block %}
+            <h1>Popluar Book</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th data-field="index">#</th>
+                        <th>Book Name</th>
+                        <th>Author</th>
+                        <th>Score</th>
+                        <th>ISBN</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for b in spider_books %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ b.name }}</td>
+                            <td>{{ b.author }}</td>
+                            <td>{{ b.score }}</td>
+                            <td>{{ b.isbn }}</td>
+                            <td>{{ b.price }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% endblock %}
     </div>
 

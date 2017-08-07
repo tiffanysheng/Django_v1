@@ -12,6 +12,7 @@ from . import models
 from User_Management.permission import PermissionVerify
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
+from douban.models import Books
 
 
 def index(request):
@@ -151,3 +152,21 @@ def addTransaction(request, userid, transamount, transtype):
     models.Transaction.objects.create(user_id=user, transaction_amount=transamount, transaction_type=transtype)
     return HttpResponseRedirect(reverse('logIn'))
 
+
+class BooksListView(ListView):
+    model = Books
+    context_object_name = 'spider_books'
+    template_name = 'user_page.html'
+
+    def get_queryset(self):
+        return Books.objects.using('spiderdb').values('name','author','score','isbn','price').order_by('-score')
+
+    def get_context_data(self, **kwargs):
+        context = super(BooksListView, self).get_context_data(**kwargs)
+        context['user_fullname'] = self.request.user.get_full_name
+        context['myuser_id'] = self.request.user.myuser.id
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(BooksListView, self).dispatch(*args, **kwargs)

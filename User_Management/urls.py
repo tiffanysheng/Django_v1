@@ -7,7 +7,7 @@ app_name = 'User_Management'
 
 urlpatterns=[
     url(r'^signup/$',views.signup,name='signup'),
-    url(r'^user_page/$',views.showUserPage,name='user_page'),
+    url(r'^user_page/$',views.BooksListView.as_view(),name='user_page'),
     url(r'^logout/$',views.logOut,name='logout'),
     url(r'^user_info/(?P<pk>\d+)/$',views.UserInfoDetailView.as_view(),name='user_info'),
     url(r'^user_activity/$',views.UserActivityListView.as_view(),name='user_activity'),

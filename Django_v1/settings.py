@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'User_Management.apps.UserManagementConfig',
     'bootstrapform',
+    'douban.apps.doubanConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -82,7 +84,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+    'spiderdb': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'douban/books.db'),
+    },
 }
 
 
