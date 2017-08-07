@@ -41,7 +41,7 @@
             <div class="form-group" style="padding-left: 10%">{{ form|bootstrap_horizontal }}</div>
             {% csrf_token %}
             <div style="left: 56%;position: relative">
-                <input type="submit" class="btn btn-large" style="background-color: black; color: white" value="Login" >
+                <input type="submit" class="btn btn-large" style="background-color: transparent; color: black; font-weight: bold" value="Login" >
             </div>
         </form>
         {% if state == 'not_exist_or_password_error' %}
