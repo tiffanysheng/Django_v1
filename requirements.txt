@@ -1,6 +1,5 @@
 Automat==0.6.0
 Django==1.11.3
-Faker==0.7.17
 Markdown==2.6.8
 Pillow==4.2.1
 PyDispatcher==2.0.5
@@ -15,7 +14,6 @@ constantly==15.1.0
 cryptography==2.0.3
 cssselect==1.0.1
 django-bootstrap-form==3.2.1
-django_faker==0.2
 djangorestframework==3.6.3
 hyperlink==17.3.0
 idna==2.5
