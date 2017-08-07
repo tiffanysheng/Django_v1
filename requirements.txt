@@ -34,4 +34,4 @@ setuptools==28.8.0
 six==1.10.0
 w3lib==1.18.0
 zope.interface==4.4.2
-guinicorn==19.0.0
+gunicorn==19.7.1
