@@ -12,8 +12,11 @@ from . import models
 from User_Management.permission import PermissionVerify
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
-from douban.models import Books
+from scrapinghub import ScrapinghubClient
+import operator
 
+
+job = None
 
 def index(request):
     form = login.FormLogin()
@@ -46,6 +49,8 @@ def signup(request):
 
 
 def logIn(request):
+    global job
+    job = None
     form = login.FormLogin()
     state = None
     if request.method == 'POST':
@@ -153,20 +158,12 @@ def addTransaction(request, userid, transamount, transtype):
     return HttpResponseRedirect(reverse('logIn'))
 
 
-class BooksListView(ListView):
-    model = Books
-    context_object_name = 'spider_books'
-    template_name = 'user_page.html'
-
-    def get_queryset(self):
-        return Books.objects.using('spiderdb').values('name','author','score','isbn','price').order_by('-score')
-
-    def get_context_data(self, **kwargs):
-        context = super(BooksListView, self).get_context_data(**kwargs)
-        context['user_fullname'] = self.request.user.get_full_name
-        context['myuser_id'] = self.request.user.myuser.id
-        return context
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(BooksListView, self).dispatch(*args, **kwargs)
+def showBooks(request):
+    global job
+    if job is None:
+        apikey = '88133cc793ab4296b56db8a87eaae1ec'
+        client = ScrapinghubClient(apikey)
+        job = client.get_job('223795/1/3')
+        return render(request, 'user_page.html', {'spider_books': sorted(job.items.list(), key=lambda k: k['score'], reverse=True),'user_fullname':request.user.get_full_name,'myuser_id':request.user.myuser.id})
+    else:
+        return render(request, 'user_page.html',{'spider_books': sorted(job.items.list(), key=lambda k: k['score'], reverse=True), 'user_fullname': request.user.get_full_name,'myuser_id': request.user.myuser.id})

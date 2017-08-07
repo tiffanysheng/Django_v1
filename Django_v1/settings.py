@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'User_Management.apps.UserManagementConfig',
     'bootstrapform',
-    'douban.apps.doubanConfig',
 
 ]
 
