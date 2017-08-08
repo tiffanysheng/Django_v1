@@ -14,9 +14,10 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
 from scrapinghub import ScrapinghubClient
 import operator
+from User_Management.apps import test
 
 
-job = None
+job = test
 
 def index(request):
     form = login.FormLogin()
@@ -24,7 +25,6 @@ def index(request):
 
 
 def signup(request):
-
     signuped = False
 
     if request.method == "POST":
@@ -50,7 +50,7 @@ def signup(request):
 
 def logIn(request):
     global job
-    job = None
+    job = test
     form = login.FormLogin()
     state = None
     if request.method == 'POST':
@@ -76,7 +76,6 @@ def logOut(request):
 
 
 def showUserPage(request):
-    print(request.user.myuser.id)
     return render(request, 'user_page.html', {'user_fullname':request.user.get_full_name,'myuser_id':request.user.myuser.id})
 
 
@@ -160,10 +159,14 @@ def addTransaction(request, userid, transamount, transtype):
 
 def showBooks(request):
     global job
+    job = test
     if job is None:
+        print("adgaegae")
         apikey = '88133cc793ab4296b56db8a87eaae1ec'
         client = ScrapinghubClient(apikey)
         job = client.get_job('223795/1/3')
-        return render(request, 'user_page.html', {'spider_books': sorted(job.items.list(), key=lambda k: k['score'], reverse=True),'user_fullname':request.user.get_full_name,'myuser_id':request.user.myuser.id})
+        job = sorted(job.items.list(), key=lambda k: k['score'], reverse=True)
+        return render(request, 'user_page.html', {'spider_books': job, 'user_fullname':request.user.get_full_name,'myuser_id':request.user.myuser.id})
     else:
-        return render(request, 'user_page.html',{'spider_books': sorted(job.items.list(), key=lambda k: k['score'], reverse=True), 'user_fullname': request.user.get_full_name,'myuser_id': request.user.myuser.id})
+        '''job = sorted(job.items.list(), key=lambda k: k['score'], reverse=True)'''
+        return render(request, 'user_page.html',{'spider_books': job, 'user_fullname': request.user.get_full_name,'myuser_id': request.user.myuser.id})
